@@ -19,26 +19,32 @@ public class ServerMain {
 
 	public static void main(String[] args) throws Exception {
 
+		//Prints to the Server confirming the server is running
 		System.out.println("The Chat Server is Running!");
+		
+		//This Starts the Server
 		ServerSocket listener = new ServerSocket(port);
 		
 		try {
 			
+			//This runs and accepts new conections fro clients
 			while(true){
+				
+				//Creates a new thread for the client
 				new Handler(listener.accept(), names, writer).start();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{
+			
+			//When server is shutdown the socket is closed
 			listener.close();
 		}
-		
-		
-		
-
 	}
 	
+	//This sends all the clients messages
 	public synchronized static void broadcast(String message){
+		
 		
 		for(PrintWriter wrt : writer){
 			wrt.println(message);

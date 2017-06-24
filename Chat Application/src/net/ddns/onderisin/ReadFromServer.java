@@ -21,15 +21,17 @@ public class ReadFromServer extends Thread{
 		this.ta = textarea;
 	}
 
+	//Method that runs when start() is called
 	public void run(){
+		
+		//This loops and looks for server response
 		while(true){
 			try {
 				
+				//Appends the server response to the textarea
 				ta.append(in.readLine() + "\n");
 					
-				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
