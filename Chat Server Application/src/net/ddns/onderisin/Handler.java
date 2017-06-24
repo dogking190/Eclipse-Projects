@@ -43,6 +43,7 @@ public class Handler extends Thread{
 			/***************************************************/
 			while(keepgoing){
 				
+				//Prompts the CLient to Select a Username
 				out.println("Submit a Username!");
 				name = in.readLine();
 				

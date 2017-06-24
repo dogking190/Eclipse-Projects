@@ -25,6 +25,7 @@ public class ChatMain extends JFrame{
 
 	public static void main(String[] args) throws UnknownHostException, IOException{
 		
+		//Creating a GUI
 		JFrame frame = new JFrame("Chat Client");
 		JTextArea textarea = new JTextArea(10, 20);
 		JButton button = new JButton("Send");
