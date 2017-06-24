@@ -37,5 +37,14 @@ public class ServerMain {
 		
 
 	}
+	
+	public synchronized static void broadcast(String message){
+		
+		for(PrintWriter wrt : writer){
+			wrt.println(message);
+			wrt.flush();
+		}
+		
+	}
 
 }

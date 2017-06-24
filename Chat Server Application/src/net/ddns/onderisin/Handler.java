@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Handler extends Thread{
 	
@@ -34,11 +35,15 @@ public class Handler extends Thread{
 			//Server > Client
 			out = new PrintWriter(socket.getOutputStream(), true);
 			
+			out.println("Welcome to the Chat Server!");
+			System.out.println(socket.toString() + " Has Joined the Chat");
+			boolean keepgoing = true;
+			
 			//Request a username from the client
 			/***************************************************/
-			while(true){
+			while(keepgoing){
 				
-				out.print("Submit a Username!");
+				out.println("Submit a Username!");
 				name = in.readLine();
 				
 				if(name == null){
@@ -48,27 +53,35 @@ public class Handler extends Thread{
 				synchronized (name){
 					if(!clients.contains(name)){
 						clients.add(name);
+						out.println("Username has been Accepted!");
+						writers.add(out);
+						keepgoing = false;
 						break;
 					}
 				}
 			}
 			/***************************************************/
 			
-			out.println("Username has been Accepted!");
-			writers.add(out);
+			
+			
 			
 			//Broadcasts a Message from one cleint to all the other clients
+			
 			while(true){
 				String messages = in.readLine();
+				
 				
 				if(messages == null){
 					return;
 				}
 				
-				for(PrintWriter wrt : writers){
-					wrt.println(name + ": " + messages);
-				}
+				
+				System.out.println(name + ":" + messages);
+				
+				ServerMain.broadcast(name + ":" + messages);
+				
 			}
+			
 		}
 		catch(IOException e){
 			
