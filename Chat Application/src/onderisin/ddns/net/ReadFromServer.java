@@ -1,4 +1,4 @@
-package net.ddns.onderisin;
+package onderisin.ddns.net;
 
 import java.io.BufferedReader;
 import java.io.IOException;

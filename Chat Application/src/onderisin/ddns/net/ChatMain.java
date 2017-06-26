@@ -1,4 +1,4 @@
-package net.ddns.onderisin;
+package onderisin.ddns.net;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -79,7 +79,7 @@ public class ChatMain extends JFrame{
 				//Sets the textfield to blank
 				textfield.setText("");
 				
-				//Send the response to the server
+				//Send the response to the serverx
 				out.println(line);
 				
 			}

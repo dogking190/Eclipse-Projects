@@ -16,6 +16,8 @@ public class Handler extends Thread{
 	private HashSet<PrintWriter> writers;
 	private BufferedReader in;
 	private PrintWriter out;
+	
+	boolean keepgoing2 = true;
 
 	public Handler(Socket accept, HashSet<String> list, HashSet<PrintWriter> writers) {
 		
@@ -68,7 +70,7 @@ public class Handler extends Thread{
 			
 			//Broadcasts a Message from one cleint to all the other clients
 			
-			while(true){
+			while(keepgoing2){
 				String messages = in.readLine();
 				
 				
@@ -79,7 +81,28 @@ public class Handler extends Thread{
 				
 				System.out.println(name + ":" + messages);
 				
+				//Checks to see of the use wants to logout
+				if(messages.equalsIgnoreCase("LOGOUT")){
+					
+					//Checks to make sure the username is in the list and if so remove it
+					if(!clients.contains(name)){
+						clients.remove(name);
+					}
+					
+					//Checks to make sure the output to each client is closed
+					if(!writers.contains(out)){
+						clients.remove(out);
+					}
+					
+					keepgoing2 = false;
+					
+				}
+				else{
+					
+				//Send a message to all the clients
 				ServerMain.broadcast(name + ":" + messages);
+				
+				}
 				
 			}
 			
@@ -100,7 +123,12 @@ public class Handler extends Thread{
 				writers.remove(out);
 			}
 			
+			
+			
 			try{
+				out.close();
+				in.close();
+				
 				socket.close();
 			}
 			catch(IOException e){
