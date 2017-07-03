@@ -82,6 +82,11 @@ public class ChatMain extends JFrame{
 				//Send the response to the serverx
 				out.println(line);
 				
+				//If the message is logout then the Client closes the application
+				if(line.equalsIgnoreCase("LOGOUT")){
+					
+					System.exit(0);
+				}
 			}
 			
 			

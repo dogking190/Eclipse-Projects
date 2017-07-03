@@ -85,16 +85,22 @@ public class Handler extends Thread{
 				if(messages.equalsIgnoreCase("LOGOUT")){
 					
 					//Checks to make sure the username is in the list and if so remove it
-					if(!clients.contains(name)){
-						clients.remove(name);
+					if(clients.contains(name)){
+						synchronized(clients){
+							clients.remove(name);
+						}
 					}
 					
 					//Checks to make sure the output to each client is closed
-					if(!writers.contains(out)){
-						clients.remove(out);
+					if(writers.contains(out)){
+						synchronized(writers){
+							writers.remove(out);
+						}
 					}
 					
 					keepgoing2 = false;
+					
+					this.interrupt();
 					
 				}
 				else{
